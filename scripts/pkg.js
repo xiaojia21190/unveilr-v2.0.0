@@ -48,7 +48,7 @@ async function _tgz() {
 }
 async function main() {
   log('Building distribution...')
-  execSync('yarn build')
+  execSync('pnpm build')
   await pkg()
   await _tgz()
 }

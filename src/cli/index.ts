@@ -1,7 +1,8 @@
 import { Command, Option } from 'commander'
 import wxCommand, { WxConfigurator } from '@/cli/commands/wxapkg'
 import { LoggerLevel } from '@utils/logger'
-import { outputConfig } from '@/cli/outputConfig'
+import { outputConfig } from '@/cli/config/outputConfig'
+// import ttCommand from '@/cli/commands/ttapkg'
 
 export interface CliConfigurator {
   global: {
@@ -21,15 +22,15 @@ export function registerCommand(version: string, name: string, _argv?: string[])
     .version(version, '-v, --version')
     .addOption(logLevel)
     .addCommand(wxCommand, { isDefault: true })
+    // .addCommand(ttCommand)
     .addHelpText(
       'after',
       `
 Example:
-  $ ${name} /path/to/wxapkg/dir/
-  $ ${name} 1.wxapkg 2.wxapkg 3.wxapkg ...
-  $ ${name} wx /path/to/wxapkg/dir/           Specify wx subcommand
-  $ ${name} wx 1.wxapkg 2.wxapkg 3.wxapkg ... Specify wx subcommand
-  $ ${name} wx -h                             Show wx help info
+  $ ${name} /path/to/dir/                     Default wx subcommand
+  $ ${name} -f /path/to/dir/                  Reformat output
+  $ ${name} -f -o /target/dir/ /path/to/dir/  Reformat output & set output path
+  ...
 `,
     )
     .showHelpAfterError()
